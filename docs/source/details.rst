@@ -1,12 +1,12 @@
-[--solutionname--] Details
+[cybersecurity-rtms-main-3f10-ml_agenticai_mqtt] Details
 ============================
 
-Generated On: --datetime-- UTC
+Generated On: 2026-06-15 01:56:47 UTC
 
 TML Solution DAG Parameters' Details: User Chosen Parametets
 ----------------------------
 
-STEP 1: Get TML Core Params: `tml_system_step_1_getparams_dag <--step1url-->`_
+STEP 1: Get TML Core Params: `tml_system_step_1_getparams_dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_1_getparams_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -14,21 +14,21 @@ STEP 1: Get TML Core Params: `tml_system_step_1_getparams_dag <--step1url-->`_
    * - **User Parameter**
      - **Chosen Value**
    * - solutionname
-     - --solutionname--
+     - cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
    * - solutiontitle
-     - --solutiontitle--
+     - My Solution Title
    * - solutiondescription
-     - --solutiondescription--
+     - This an awesome real-time solution built by TSS
    * - brokerhost
-     - --brokerhost--
+     - 127.0.0.1
    * - brokerport
-     - --brokerport--
+     - 9092
    * - cloudusername
-     - --cloudusername--
+     - None
    * - ingestdatamethod
-     - --ingestdatamethod--
+     - MQTT
  
-STEP 2: Create Kafka Topics: `tml_system_step_2_kafka_createtopic_dag <--step2url-->`_
+STEP 2: Create Kafka Topics: `tml_system_step_2_kafka_createtopic_dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_2_kafka_createtopic_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -36,31 +36,31 @@ STEP 2: Create Kafka Topics: `tml_system_step_2_kafka_createtopic_dag <--step2ur
    * - **User Parameter**
      - **Chosen Value**
    * - companyname
-     - --companyname--
+     - Otics
    * - myname
-     - --myname--
+     - Sebastian
    * - myemail
-     - --myemail--
+     - Sebastian.Maurice
    * - mylocation
-     - --mylocation--
+     - Toronto
    * - replication
-     - --replication--
+     - 1
    * - numpartitions
-     - --numpartitions--
+     - 1
    * - enabletls
-     - --enabletls--
+     - 1
    * - microserviceid
-     - --microserviceid--
+     - 
    * - raw_data_topic
-     - --raw_data_topic--
+     - iot-raw-data
    * - preprocess_data_topic
-     - --preprocess_data_topic--
+     - iot-preprocess
    * - ml_data_topic
-     - --ml_data_topic--
+     - ml-data
    * - prediction_data_topic
-     - --prediction_data_topic--
+     - prediction-data
 
-STEP 3: `Produce to Kafka Topics <--step3url-->`_
+STEP 3: `Produce to Kafka Topics <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_read_MQTT_step_3_kafka_producetotopic_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -68,27 +68,27 @@ STEP 3: `Produce to Kafka Topics <--step3url-->`_
    * - **User Parameter**
      - **Chosen Value**
    * - PRODUCETYPE
-     - --PRODUCETYPE--
+     - MQTT
    * - inputfile
      - --inputfile--
    * - TOPIC
-     - --TOPIC--
+     - iot-raw-data
    * - PORT
-     - --PORT--
+     - _39399
    * - IDENTIFIER
-     - --IDENTIFIER--
+     - MQTT Subscription Topic: 
    * - HTTPADDR
-     - --HTTPADDR--
+     - https://
    * - FROMHOST
-     - --FROMHOST--
+     - seb,127.0.1.1
    * - TOHOST
-     - --TOHOST--
+     - 0.0.0.0
    * - CLIENTPORT
-     - --CLIENTPORT--
+     - Not Applicable
    * - TSS_CLIENTPORT
-     - --TSSCLIENTPORT--
+     - Not Applicable
    * - TML_CLIENTPORT
-     - --TMLCLIENTPORT--
+     - Not Applicable
    * - docfolder
      - --docfolderprocess--
    * - doctopic
@@ -98,7 +98,7 @@ STEP 3: `Produce to Kafka Topics <--step3url-->`_
    * - docingestinterval
      - --docingestinterval--
 
-STEP 4: Preprocesing Data: `tml-system-step-4-kafka-preprocess-dag <--step4url-->`_
+STEP 4: Preprocesing Data: `tml-system-step-4-kafka-preprocess-dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_4_kafka_preprocess_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -106,37 +106,37 @@ STEP 4: Preprocesing Data: `tml-system-step-4-kafka-preprocess-dag <--step4url--
    * - **User Parameter**
      - **Chosen Value**
    * - raw_data_topic
-     - --raw_data_topic--
+     - iot-raw-data
    * - preprocess_data_topic
-     - --preprocess_data_topic--
+     - iot-preprocess
    * - preprocessconditions
-     - --preprocessconditions--
+     - 
    * - delay
-     - --delay--
+     - 70
    * - maxrows
-     - --maxrows--
+     - 800
    * - array
-     - --array--
+     - 0
    * - saveasarray
-     - --saveasarray--
+     - 1
    * - topicid
-     - --topicid--
+     - -999
    * - rawdataoutput
-     - --rawdataoutput--
+     - 1
    * - asynctimeout
-     - --asynctimeout--
+     - 120
    * - timedelay
-     - --timedelay--
+     - 0
    * - preprocesstypes
-     - --preprocesstypes--
+     - anomprob,trend,avg
    * - pathtotmlattrs
      - --pathtotmlattrs--
    * - identifier
-     - --identifier--
+     - IoT device performance and failures
    * - jsoncriteria
-     - --jsoncriteria--
+     - uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~values=datapoint.value~identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~latlong=lat:long
 
-STEP 4a: Preprocesing Data: `tml-system-step-4a-kafka-preprocess-dag <--step4aurl-->`_
+STEP 4a: Preprocesing Data: `tml-system-step-4a-kafka-preprocess-dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_4a_kafka_preprocess_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -174,7 +174,7 @@ STEP 4a: Preprocesing Data: `tml-system-step-4a-kafka-preprocess-dag <--step4aur
    * - jsoncriteria
      - --jsoncriteria1--
 
-STEP 4b: Preprocesing Data: `tml-system-step-4b-kafka-preprocess-dag <--step4burl-->`_
+STEP 4b: Preprocesing Data: `tml-system-step-4b-kafka-preprocess-dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_4b_kafka_preprocess_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -212,7 +212,7 @@ STEP 4b: Preprocesing Data: `tml-system-step-4b-kafka-preprocess-dag <--step4bur
    * - jsoncriteria
      - --jsoncriteria2--
 
-STEP 4c: Preprocesing Data: `tml-system-step-4c-kafka-preprocess-dag  <--step4curl-->`_
+STEP 4c: Preprocesing Data: `tml-system-step-4c-kafka-preprocess-dag  <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_4c_kafka_preprocess_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -272,7 +272,7 @@ STEP 4c: Preprocesing Data: `tml-system-step-4c-kafka-preprocess-dag  <--step4cu
    * - RTMS Output Github Link
      - `Output Data URL <--rtmsoutputurl-->`_
 
-STEP 5: Entity Based Machine Learning : `tml-system-step-5-kafka-machine-learning-dag <--step5url-->`_
+STEP 5: Entity Based Machine Learning : `tml-system-step-5-kafka-machine-learning-dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_5_kafka_machine_learning_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -280,45 +280,45 @@ STEP 5: Entity Based Machine Learning : `tml-system-step-5-kafka-machine-learnin
    * - **User Parameter**
      - **Chosen Value**
    * - preprocess_data_topic
-     - --preprocess_data_topic--
+     - iot-preprocess
    * - ml_data_topic
-     - --ml_data_topic--
+     - ml-data
    * - modelruns
-     - --modelruns--
+     - 50
    * - offset
-     - --offset--
+     - -1
    * - islogistic
-     - --islogistic--
+     - 1
    * - networktimeout
-     - --networktimeout--
+     - 600
    * - modelsearchtuner
-     - --modelsearchtuner--
+     - 90
    * - processlogic
-     - --processlogic--
+     - classification_name=failure_prob:Power_preprocessed_AnomProb=55,n
    * - dependentvariable
-     - --dependentvariable--
+     - failure
    * - independentvariables
-     - --independentvariables--
+     - Power_preprocessed_AnomProb
    * - rollbackoffsets
-     - --rollbackoffsets--
+     - 1000
    * - topicid
-     - --topicid--
+     - -999
    * - consumefrom
-     - --consumefrom--
+     - 
    * - fullpathtotrainingdata
-     - --fullpathtotrainingdata--
+     - /Viper-ml/viperlogs/iotlogistic
    * - transformtype
-     - --transformtype--
+     - 
    * - sendcoefto
-     - --sendcoefto--
+     - 
    * - coeftoprocess
-     - --coeftoprocess--
+     - 
    * - coefsubtopicnames
-     - --coefsubtopicnames--
+     - 
    * - ML Output Github Link
-     - `Output Data URL <--mloutputurl-->`_
+     - `Output Data URL <https:\/\/github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/mldata/iotlogistic>`_
 
-STEP 6: Entity Based Predictions: `tml-system-step-6-kafka-predictions-dag <--step6url-->`_
+STEP 6: Entity Based Predictions: `tml-system-step-6-kafka-predictions-dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_6_kafka_predictions_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -326,31 +326,31 @@ STEP 6: Entity Based Predictions: `tml-system-step-6-kafka-predictions-dag <--st
    * - **User Parameter**
      - **Chosen Value**
    * - preprocess_data_topic
-     - --preprocess_data_topic--
+     - iot-preprocess
    * - ml_prediction_topic
-     - --ml_prediction_topic--
+     - iot-ml-prediction-results-output
    * - streamstojoin
-     - --streamstojoin--
+     - Power_preprocessed_AnomProb
    * - inputdata
-     - --inputdata--
+     - 
    * - consumefrom
-     - --consumefrom2--
+     - ml-data
    * - offset
-     - --offset--
+     - -1
    * - delay
-     - --delay--
+     - 70
    * - usedeploy
-     - --usedeploy--
+     - 1
    * - networktimeout
-     - --networktimeout--
+     - 600
    * - maxrows
-     - --maxrows--
+     - 800
    * - topicid
-     - --topicid--
+     - -999
    * - pathtoalgos
-     - --pathtoalgos--
+     - /Viper-ml/viperlogs/iotlogistic
 
-STEP 7: Real-Time Visualization: `tml-system-step-7-kafka-visualization-dag <--step7url-->`_
+STEP 7: Real-Time Visualization: `tml-system-step-7-kafka-visualization-dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_7_kafka_visualization_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -358,34 +358,58 @@ STEP 7: Real-Time Visualization: `tml-system-step-7-kafka-visualization-dag <--s
    * - **User Parameter**
      - **Chosen Value**
    * - vipervizport
-     - --vipervizport--
+     - 9689
    * - topic
-     - --topic--
+     - iot-preprocess,iot-preprocess2
    * - dashboardhtml
-     - --dashboardhtml--
+     - dashboard-ml.html
    * - secure
-     - --secure--
+     - 1
    * - offset
-     - --offset--
+     - -1
    * - append
-     - --append--
+     - 0
    * - chip
-     - --chip--
+     - amd64
    * - rollbackoffset
-     - --rollbackoffset--
+     - 400
 
-STEP 8: `tml_system_step_8_deploy_solution_to_docker_dag <--step8url-->`_
+STEP 8: `tml_system_step_8_deploy_solution_to_docker_dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_8_deploy_solution_to_docker_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^
 .. list-table::
 
    * - **User Parameter**
      - **Chosen Value**
    * - Docker Container
-     - --dockercontainer--
+     - maadsdocker/cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-amd64 (https://hub.docker.com/r/maadsdocker/cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-amd64)
    * - Docker Run Command
-     - --dockerrun--
+     - docker run -d -p 5050:5050 -p 4040:4040 -p 6060:6060 \
+          --env TSS=0 \
+          --env SOLUTIONNAME=cybersecurity-rtms-main-3f10-ml_agenticai_mqtt \
+          --env SOLUTIONDAG=solution_preprocessing_ml_agenticai_mqtt_dag-cybersecurity-rtms-main-3f10 \
+          --env GITUSERNAME=<Enter Github Username> \
+          --env GITPASSWORD='<Enter Github Password>' \          
+          --env GITREPOURL=<Enter Github Repo URL> \
+          --env SOLUTIONEXTERNALPORT=5050 \
+          -v /var/run/docker.sock:/var/run/docker.sock:z \
+          -v /your_localmachine/foldername:/rawdata:z \
+          --env CHIP=amd64 \
+          --env SOLUTIONAIRFLOWPORT=4040 \
+          --env SOLUTIONVIPERVIZPORT=6060 \
+          --env DOCKERUSERNAME='' \
+          --env EXTERNALPORT=39399 \
+          --env KAFKABROKERHOST=127.0.0.1:9092 \                    
+          --env KAFKACLOUDUSERNAME='<Enter API key>' \
+          --env KAFKACLOUDPASSWORD='<Enter API secret>' \          
+          --env SASLMECHANISM=PLAIN \                    
+          --env VIPERVIZPORT=9689 \
+          --env MQTTUSERNAME='' \
+          --env MQTTPASSWORD='' \          
+          --env AIRFLOWPORT=9000 \
+          --env READTHEDOCS='<Enter Readthedocs token>' \ 
+          maadsdocker/cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-amd64
 
-STEP 9: `tml_system_step_9_privategpt_qdrant_dag <--step9url-->`_
+STEP 9: `tml_system_step_9_privategpt_qdrant_dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_9_privategpt_qdrant_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^
 .. list-table::
 
@@ -400,17 +424,17 @@ STEP 9: `tml_system_step_9_privategpt_qdrant_dag <--step9url-->`_
    * - Qdrant Run Command
      - --qdrantrun--
    * - Consumefrom
-     - --consumefrom--
+     - 
    * - pgpt_data_topic
      - --pgpt_data_topic--
    * - offset
-     - --offset--
+     - -1
    * - rollbackoffset
-     - --rollbackoffset--
+     - 400
    * - topicid
-     - --topicid--
+     - -999
    * - enabletls
-     - --enabletls--
+     - 1
    * - partition
      - --partition--
    * - prompt
@@ -462,68 +486,73 @@ STEP 9: `tml_system_step_9_privategpt_qdrant_dag <--step9url-->`_
    * - mitrejson
      - --mitrejson--
 
-STEP 9b: `tml_system_step_9b_agenticai_dag <--step9burl-->`_
+STEP 9b: `tml_system_step_9b_agenticai_dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_9b_agenticai_dag-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^
 .. list-table::
 
    * - **User Parameter**
      - **Chosen Value**
    * - rollbackoffset
-     - --agenticai-rollbackoffset--
+     - 5
    * - ollama-model
-     - --agenticai-ollama-model--
+     - llama3.1
    * - deletevectordbcount
-     - --agenticai-deletevectordbcount--
+     - 10
    * - vectordbpath
-     - --agenticai-vectordbpath--
+     - /rawdata/vectordb
    * - temperature
-     - --agenticai-temperature--
+     - 0.1
    * - topicid
-     - --agenticai-topicid--
+     - -999
    * - enabletls
-     - --agenticai-enabletls--
+     - 1
    * - partition
-     - --agenticai-partition--
+     - -1
    * - vectordbcollectionname
-     - --agenticai-vectordbcollectionname--
+     - tml-llm-model-v2
    * - ollamacontainername
-     - --agenticai-ollamacontainername--
+     - 
    * - mainip
-     - --agenticai-mainip--
+     - http://127.0.0.1
    * - mainport
-     - --agenticai-mainport--
+     - 11434
    * - embedding
-     - --agenticai-embedding--
+     - nomic-embed-text
    * - agenttopic
-     - --agenticai-agenttopic--
+     - 
    * - agents_topic_prompt
-     - --agenticai-agents_topic_prompt--
-   * - teamlead_topic
-     - --agenticai-teamlead_topic--
-   * - teamleadprompt
-     - --agenticai-teamleadprompt--
-   * - supervisor_topic
-     - --agenticai-supervisor_topic--
-   * - supervisorprompt
-     - --agenticai-supervisorprompt--
-   * - agenttoolfunctions
-     - --agenticai-agenttoolfunctions--
-   * - agent_team_supervisor_topic
-     - --agenticai-agent_team_supervisor_topic--
-   * - concurrency
-     - --agenticai-concurrency--
-   * - CUDA_VISIBLE_DEVICES
-     - --agenticai-cuda--
-   * - contextwindow
-     - --agenticai-contextwindow--
-   * - localmodelsfolder
-     - --agenticai-localmodelsfolder--
+     - 
+<consumefrom - topic agent will monitor:prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer>
 
-STEP 10: `tml_system_step_10_documentation_dag <--step10url-->`_
+   * - teamlead_topic
+     - 
+   * - teamleadprompt
+     - 
+Enter the prompt for the Team lead agent
+
+   * - supervisor_topic
+     - 
+   * - supervisorprompt
+     - 
+   * - agenttoolfunctions
+     - 
+tool_function:agent_name:system_prompt
+   * - agent_team_supervisor_topic
+     - 
+   * - concurrency
+     - 2
+   * - CUDA_VISIBLE_DEVICES
+     - 0
+   * - contextwindow
+     - 10000
+   * - localmodelsfolder
+     - /rawdata/ollama
+
+STEP 10: `tml_system_step_10_documentation_dag <https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/tml_system_step_10_documentation_dag_tml-multi-agenticai-iot-3f10-cybersecurity-rtms-main-3f10.py>`_
 ^^^^^^^^^^^^^^^^^^^^^
 .. list-table::
 
    * - **User Parameter**
      - **Chosen Value**
    * - Solution Documentation URL
-     - --readthedocs--
+     - https://cybersecurity-rtms-main-3f10-ml-agenticai-mqtt.readthedocs.io

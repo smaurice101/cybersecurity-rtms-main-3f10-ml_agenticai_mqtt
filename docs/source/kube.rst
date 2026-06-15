@@ -1,7 +1,7 @@
-Scaling [--solutionname--] With Kubernetes
+Scaling [cybersecurity-rtms-main-3f10-ml_agenticai_mqtt] With Kubernetes
 ===========================
 
-Generated On: --datetime-- UTC
+Generated On: 2026-06-15 01:56:47 UTC
 
 You can scale your solution with Kubernetes.  To do so, will will need to apply the following YAML files to your Kubernetes cluster.
 
@@ -35,13 +35,13 @@ You can scale your solution with Kubernetes.  To do so, will will need to apply 
    sudo systemctl restart docker
 
 
-Based on your TML solution [--solutionname--] - if you want to scale your application with Kubernetes - you will need to apply the following YAML files.
+Based on your TML solution [cybersecurity-rtms-main-3f10-ml_agenticai_mqtt] - if you want to scale your application with Kubernetes - you will need to apply the following YAML files.
 
 .. list-table::
 
    * - **YML File**
      - **Description**
-   * - :ref:`--solutionnamefile--`
+   * - :ref:`cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml`
      - This is your main solution YAML file.  
  
        It MUST be applied to your Kubernetes cluster.
@@ -75,10 +75,10 @@ Based on your TML solution [--solutionname--] - if you want to scale your applic
        This is OPTIONAL.  However, it must be 
  
        applied if using Step 9 DAG.
-   * - :ref:`nginx-ingress---nginxname--.yml`
+   * - :ref:`nginx-ingress-cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml`
      - If you are scaling your TML solution you must
 
-       apply the nginx-ingress--nginxname--.yml; this yaml is 
+       apply the nginx-ingresscybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml; this yaml is 
 
        auto-generated for every TML solution.
 
@@ -94,15 +94,15 @@ kubectl Apply command
 
 .. code-block:: YAML
 
-   --kubectl--
+   kubectl apply -f kafka.yml -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml -f ollama.yml
 
---solutionnamefile--
+cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml
 ------------------------
 
 .. important::
-   Copy and Paste this YAML file: --solutionnamefile-- - and save it locally.
+   Copy and Paste this YAML file: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml - and save it locally.
 
-   These YML files can also be found on GitHub at: --gityml--
+   These YML files can also be found on GitHub at: https://github.com/smaurice101/raspberrypitss/tree/main/tml-airflow/dags/tml-solutions/cybersecurity-rtms-main-3f10/ymls/cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
 
 .. attention::
 
@@ -120,8 +120,276 @@ kubectl Apply command
 
 .. code-block:: YAML
 
-   ################# --solutionnamefile--
-   --solutionnamecode--
+   ################# cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml
+   
+     apiVersion: apps/v1
+     kind: Deployment
+     metadata:
+       name: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
+     spec:
+       selector:
+         matchLabels:
+           app: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
+       replicas: 3 # tells deployment to run 1 pods matching the template
+       template:
+         metadata:
+           labels:
+             app: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
+         spec:
+           containers:
+           - name: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
+             image: maadsdocker/cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-amd64:latest
+             volumeMounts:
+             - name: dockerpath
+               mountPath: /var/run/docker.sock
+             - name: rawdata
+               mountPath: /rawdata   # container folder where the local folder will be mounted                           
+             ports:
+             - containerPort: 5050
+             - containerPort: 4040
+             - containerPort: 6060
+             env:
+             - name: TSS
+               value: '0'
+             - name: PROJECTNAME
+               value: 'cybersecurity-rtms-main-3f10'                              
+             - name: SOLUTIONNAME
+               value: 'cybersecurity-rtms-main-3f10-ml_agenticai_mqtt'
+             - name: SOLUTIONDAG
+               value: 'solution_preprocessing_ml_agenticai_mqtt_dag-cybersecurity-rtms-main-3f10'
+             - name: GITUSERNAME
+               value: 'smaurice101'
+             - name: GITREPOURL
+               value: 'https://github.com/smaurice101/raspberrypitss.git'
+             - name: SOLUTIONEXTERNALPORT
+               value: '5050'
+             - name: CHIP
+               value: 'amd64'
+             - name: SOLUTIONAIRFLOWPORT
+               value: '4040'
+             - name: SOLUTIONVIPERVIZPORT
+               value: '6060'
+             - name: DOCKERUSERNAME
+               value: 'maadsdocker'
+             - name: CLIENTPORT
+               value: '0'
+             - name: EXTERNALPORT
+               value: '39399'
+             - name: KAFKACLOUDUSERNAME
+               value: ''
+             - name: VIPERVIZPORT
+               value: '9689'
+             - name: MQTTUSERNAME
+               value: 'smaurice'
+             - name: AIRFLOWPORT
+               value: '9000'
+             - name: GITPASSWORD
+               valueFrom:
+                 secretKeyRef:
+                  name: tmlsecrets 
+                  key: githubtoken                       
+             - name: KAFKACLOUDPASSWORD
+               valueFrom:
+                 secretKeyRef:
+                  name: tmlsecrets 
+                  key: kafkacloudpassword                      
+             - name: MQTTPASSWORD
+               valueFrom: 
+                 secretKeyRef:
+                   name: tmlsecrets 
+                   key: mqttpass                        
+             - name: READTHEDOCS
+               valueFrom:
+                 secretKeyRef:
+                   name: tmlsecrets 
+                   key: readthedocs          
+             - name: qip 
+               value: 'privategpt-service' # This is private GPT service in kubernetes
+             - name: KUBE
+               value: '1'
+             - name: step3localfileinputfile # STEP 3 localfile inputfile field can be adjusted here.
+               value: ''
+             - name: step3localfiledocfolder # STEP 3 # STEP 3 docfolder inputfile field can be adjusted here.
+               value: ''               
+             - name: step4maxrows # STEP 4 maxrows field can be adjusted here.  Higher the number more data to process, BUT more memory needed.
+               value: '-1'
+             - name: step4bmaxrows # STEP 4b maxrows field can be adjusted here.  Higher the number more data to process, BUT more memory needed.
+               value: '-1'               
+             - name: step4cmaxrows # STEP 4c maxrows field can be adjusted here.  Higher the number more data to process, BUT more memory needed.
+               value: '-1'               
+             - name: step4crawdatatopic # STEP 4c
+               value: ''               
+             - name: step4csearchterms # STEP 4c 
+               value: ''               
+             - name: step4crememberpastwindows # STEP 4c 
+               value: ''               
+             - name: step4cpatternwindowthreshold # STEP 4c 
+               value: ''               
+             - name: step4crtmsscorethreshold # STEP 4c 
+               value: '' 
+             - name: step4cattackscorethreshold # STEP 4c 
+               value: '' 
+             - name: step4cpatternscorethreshold # STEP 4c 
+               value: ''                
+             - name: step4crtmsstream # STEP 4c 
+               value: ''                              
+             - name: step4clocalsearchtermfolder # STEP 4c 
+               value: ''                              
+             - name: step4clocalsearchtermfolderinterval # STEP 4c 
+               value: ''                                                            
+             - name: step4crtmsfoldername # STEP 4c 
+               value: ''                                                                           
+             - name: step4crtmsmaxwindows # STEP 4c adjust RTMSMAXWINDOWS for Step 4c
+               value: ''                                       
+             - name: step2raw_data_topic # STEP 2 
+               value: 'iot-raw-data'                           
+             - name: step2preprocess_data_topic # STEP 2 
+               value: 'iot-preprocess'                           
+             - name: step4raw_data_topic # STEP 4
+               value: 'iot-raw-data'                           
+             - name: step4preprocess_data_topic # STEP 4
+               value: 'iot-preprocess'                                                         
+             - name: step4preprocesstypes # STEP 4
+               value: 'anomprob,trend,avg'                                                         
+             - name: step4jsoncriteria # STEP 4
+               value: 'uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~values=datapoint.value~identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~latlong=lat:long'                           
+             - name: step4ajsoncriteria # STEP 4a 
+               value: ''                           
+             - name: step4amaxrows # STEP 4a
+               value: ''                           
+             - name: step4apreprocesstypes # STEP 4a
+               value: ''                           
+             - name: step4araw_data_topic # STEP 4a
+               value: ''                           
+             - name: step4apreprocess_data_topic # STEP 4a
+               value: ''                           
+             - name: step4bpreprocesstypes # STEP 4b
+               value: ''                           
+             - name: step4bjsoncriteria # STEP 4b
+               value: ''                           
+             - name: step4braw_data_topic # STEP 4b 
+               value: ''                           
+             - name: step4bpreprocess_data_topic # STEP 4b 
+               value: ''                                          
+             - name: step5rollbackoffsets # STEP 5 rollbackoffsets field can be adjusted here.  Higher the number more training data to process, BUT more memory needed.
+               value: '1000'                              
+             - name: step5processlogic # STEP 5 processlogic field can be adjusted here.  
+               value: 'classification_name=failure_prob:Power_preprocessed_AnomProb=55,n'                                                
+             - name: step5independentvariables # STEP 5 independent variables can be adjusted here.  
+               value: 'Power_preprocessed_AnomProb'                                                                              
+             - name: step6maxrows # STEP 6 maxrows field can be adjusted here.  Higher the number more predictions to make, BUT more memory needed.
+               value: '50'                              
+             - name: step9rollbackoffset # STEP 9 rollbackoffset field can be adjusted here.  Higher the number more information sent to privateGPT, BUT more memory needed.
+               value: '-1'                  
+             - name: step9prompt # STEP 9 Enter PGPT prompt
+               value: ''                  
+             - name: step9context # STEP 9 Enter PGPT context
+               value: ''                                 
+             - name: step9keyattribute
+               value: '' # Step 9 key attribtes change as needed  
+             - name: step9keyprocesstype
+               value: '' # Step 9 key processtypes change as needed                                               
+             - name: step9hyperbatch
+               value: '' # Set to 1 if you want to batch all of the hyperpredictions and sent to chatgpt, set to 0, if you want to send it one by one   
+             - name: step9vectordbcollectionname
+               value: ''   # collection name in Qdrant
+             - name: step9concurrency # privateGPT concurency, if greater than 1, multiple PGPT will run
+               value: ''
+             - name: CUDA_VISIBLE_DEVICES
+               value: '' # 0 for any device or specify specific number                
+             - name: step9docfolder # privateGPT docfolder to load files in Qdrant vectorDB local context
+               value: ''
+             - name: step9docfolderingestinterval # privateGPT docfolderingestinterval, number of seconds to wait before reloading files in docfolder
+               value: ''
+             - name: step9useidentifierinprompt # privateGPT useidentifierinprompt, if 1, add TML output json field Identifier, if 0 use prompt
+               value: ''                              
+             - name: step9searchterms # privateGPT searchterms, terms to search for in the chat response
+               value: ''                                             
+             - name: step9streamall # privateGPT streamall, if 1, stream all responses, even if search terms are missing, 0, if response contains search terms
+               value: ''                                                            
+             - name: step9temperature # privateGPT LLM temperature between 0 and 1 i.e. 0.3, if 0, LLM model is conservative, if 1 it hallucinates
+               value: ''                                             
+             - name: step9vectorsearchtype # privateGPT for QDrant VectorDB similarity search.  Must be either Cosine, Manhattan, Dot, Euclid
+               value: ''                                                                           
+             - name: step9contextwindowsize # context window size
+               value: ''                                                                                          
+             - name: step9pgptcontainername # privateGPT container name
+               value: ''                    
+             - name: step9pgpthost # privateGPT host ip i.e.: http://127.0.0.1
+               value: ''                    
+             - name: step9pgptport # privateGPT port i.e. 8001
+               value: ''                                                  
+             - name: step9vectordimension # privateGPT vector dimension
+               value: ''                                                                 
+             - name: step9brollbackoffset
+               value: '5'
+             - name: step9bdeletevectordbcount
+               value: '10'
+             - name: step9bvectordbpath
+               value: '/rawdata/vectordb'
+             - name: step9btemperature
+               value: '0.1'
+             - name: step9bvectordbcollectionname
+               value: 'tml-llm-model-v2'
+             - name: step9bollamacontainername
+               value: ''
+             - name: step9bCUDA_VISIBLE_DEVICES
+               value: '0'
+             - name: step9bmainip
+               value: 'http://127.0.0.1'
+             - name: step9bmainport
+               value: '11434'
+             - name: step9bembedding
+               value: 'nomic-embed-text'
+             - name: step9bagents_topic_prompt
+               value: '<consumefrom - topic agent will monitor:prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer>'
+             - name: step9bteamlead_topic
+               value: ''
+             - name: step9bteamleadprompt
+               value: 'Enter the prompt for the Team lead agent'
+             - name: step9bsupervisor_topic
+               value: ''
+             - name: step9bagenttoolfunctions
+               value: 'tool_function:agent_name:system_prompt,tool_function2:agent_name2:sysemt_prompt2,....'
+             - name: step9bagent_team_supervisor_topic
+               value: ''                              
+             - name: step9bcontextwindow
+               value: '10000'                                             
+             - name: step9bagenttopic
+               value: ''                              
+             - name: step9blocalmodelsfolder
+               value: '/rawdata/ollama'                                             
+             - name: step1solutiontitle # STEP 1 solutiontitle field can be adjusted here. 
+               value: 'My Solution Title'                              
+             - name: step1description # STEP 1 description field can be adjusted here. 
+               value: 'This an awesome real-time solution built by TSS'                                          
+             - name: KUBEBROKERHOST
+               value: 'kafka-service:9092'         
+             - name: KAFKABROKERHOST
+               value: '127.0.0.1:9092'                              
+           volumes: 
+           - name: dockerpath
+             hostPath:
+               path: /var/run/docker.sock
+           - name: rawdata
+             hostPath:
+               path: /mnt  # CHANGE AS NEEDED TO YOUR LOCAL FOLDER the paths will be specific to your environment
+   ---
+     apiVersion: v1
+     kind: Service
+     metadata:
+       name: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-visualization-service
+       labels:
+         app: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-visualization-service
+     spec:
+       type: ClusterIP
+       ports:
+       - port: 80 # Ingress port, if using port 443 will need to setup TLS certs
+         name: p1
+         protocol: TCP
+         targetPort: 6060
+       selector:
+         app: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt
 
 .. tip::
 
@@ -434,7 +702,7 @@ ollama.yml
           spec:
             containers:
             - name: ollama
-              image: --ollamacontainername-- # IF you DO NOT have NVIDIA GPU then CPU will be used
+              image:  # IF you DO NOT have NVIDIA GPU then CPU will be used
               imagePullPolicy: IfNotPresent  # You can also use Always, Never
               env:
               - name: NVIDIA_VISIBLE_DEVICES
@@ -442,11 +710,11 @@ ollama.yml
               - name: DP_DISABLE_HEALTHCHECKS
                 value: xids
               - name: WEB_CONCURRENCY
-                value: "--agenticai-kubeconcur--"
+                value: "2"
               - name: GPU
                 value: "1"
               - name: COLLECTION
-                value: "--agenticai-kubecollection--"
+                value: "tml-llm-model-v2"
               - name: PORT
                 value: "11434"
               - name: CUDA_VISIBLE_DEVICES
@@ -454,45 +722,45 @@ ollama.yml
               - name: TOKENIZERS_PARALLELISM
                 value: "false"
               - name: temperature
-                value: "--agenticai-kubetemperature--"
+                value: "0.1"
               - name: rollbackoffset
-                value: "--agenticai-rollbackoffset--"
+                value: "5"
               - name: ollama-model
-                value: "--agenticai-ollama-model--"
+                value: "llama3.1"
               - name: deletevectordbcount
-                value: "--agenticai-deletevectordbcount--"
+                value: "10"
               - name: vectordbpath
-                value: "--agenticai-vectordbpath--"
+                value: "/rawdata/vectordb"
               - name: topicid
-                value: "--agenticai-topicid--"
+                value: "-999"
               - name: enabletls
-                value: "--agenticai-enabletls--"
+                value: "1"
               - name: partition
-                value: "--agenticai-partition--"
+                value: "-1"
               - name: vectordbcollectionname
-                value: "--agenticai-vectordbcollectionname--"
+                value: "tml-llm-model-v2"
               - name: ollamacontainername
-                value: "--agenticai-ollamacontainername--"
+                value: ""
               - name: mainip
-                value: "--agenticai-mainip--"
+                value: "http://127.0.0.1"
               - name: mainport
-                value: "--agenticai-mainport--"
+                value: "11434"
               - name: embedding
-                value: "--agenticai-embedding--"
+                value: "nomic-embed-text"
               - name: agents_topic_prompt
-                value: "--agenticai-agents_topic_prompt--"
+                value: "<consumefrom - topic agent will monitor:prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer>"
               - name: teamlead_topic
-                value: "--agenticai-teamlead_topic--"
+                value: ""
               - name: teamleadprompt
-                value: "--agenticai-teamleadprompt--"
+                value: "Enter the prompt for the Team lead agent"
               - name: supervisor_topic
-                value: "--agenticai-supervisor_topic--"
+                value: ""
               - name: supervisorprompt
-                value: "--agenticai-supervisorprompt--"
+                value: ""
               - name: agenttoolfunctions
-                value: "--agenticai-agenttoolfunctions--"
+                value: "tool_function:agent_name:system_prompt==tool_function2:agent_name2:sysemt_prompt2==...."
               - name: agent_team_supervisor_topic
-                value: "--agenticai-agent_team_supervisor_topic--"
+                value: ""
               - name: TSS
                 value: "0"
               - name: KUBE
@@ -589,13 +857,13 @@ To visualize the dashboard you need to forward ports to your solution **deployme
 
 .. code-block::
 
-   --kube-portforward--
+   kubectl port-forward deployment/cybersecurity-rtms-main-3f10-ml_agenticai_mqtt 6060:6060
 
 After you forward the ports then copy/paste the viusalization URL below and run your dashboard.
 
 .. code-block::
 
-   --visualizationurl--
+   http://localhost:6060/dashboard-ml.html?topic=iot-preprocess,iot-preprocess2&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1
 
 Scaling with NGINX Ingress and Ingress Controller
 -------------------------------------
@@ -646,18 +914,49 @@ All TML solutions will scale with NGINX ingress to perform load-balancing.  But,
 
       minikube tunnel
 
-   **STEP 4:  Apply nginx-ingress---nginxname--.yml to your kubernetes cluster.  First you need to save it locally then apply it:**
+   **STEP 4:  Apply nginx-ingress-cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml to your kubernetes cluster.  First you need to save it locally then apply it:**
 
-nginx-ingress---nginxname--.yml
+nginx-ingress-cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml
 -------------
 
    .. code-block::
 
-      --ingress--
+      
+    ############# nginx-ingress-cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: tml-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+    spec:
+      ingressClassName: nginx
+      rules:
+        - host: tml.tss
+          http:
+            paths:
+              - path: /viz(/|$)(.*)
+                pathType: ImplementationSpecific
+                backend:
+                  service:
+                    name: cybersecurity-rtms-main-3f10-ml_agenticai_mqtt-visualization-service
+                    port:
+                      number: 80
+    ---
+    apiVersion: v1
+    kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: ingress-nginx-controller
+      namespace: ingress-nginx
+    data:
+      allow-snippet-annotations: "true"
+  
 
    .. code-block::
 
-      kubectl apply -f nginx-ingress---nginxname--.yml
+      kubectl apply -f nginx-ingress-cybersecurity-rtms-main-3f10-ml_agenticai_mqtt.yml
 
 You are now ready to run the Dashboard using Ingress load balancing.
 
@@ -668,7 +967,7 @@ Copy and paste this URL below in your browser and start streaming.  Because you 
 
 .. code-block::
 
-   --visualizationurling--
+   http://tml.tss/viz/dashboard-ml.html?topic=iot-preprocess,iot-preprocess2&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1
 
 Making Secure TLS Connection with gRPC
 -----------------------
